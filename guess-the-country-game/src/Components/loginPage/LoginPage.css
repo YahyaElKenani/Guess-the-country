@@ -11,8 +11,8 @@ body {
 
 input { 
     height: 50px;
-    width: 70%;
-    min-width: 250px;
+    width: 20vw;
+    min-width: 200px;
     padding: 15px;
     font-size: 20px;
     border-radius: 15px;
@@ -29,6 +29,12 @@ label {
 
 input:focus { 
     outline: none;
+}
+
+@media screen and (max-width: 1140px) {
+    input { 
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 500px) {

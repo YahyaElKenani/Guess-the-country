@@ -68,13 +68,13 @@ export default function Game() {
             axios.get(`https://restcountries.com/v3.1/name/${currentCountry}`)
             .then(response => setGuessTheCountry(
                 {
-                    name: response.data[0].name.common,
+                    name: response.data[0].name.common || 'Unknown',
                     flag: response.data[0].flags.png,
-                    capital: response.data[0].capital,
-                    population: response.data[0].population,
-                    continent: response.data[0].continents[0],
-                    area: response.data[0].area,
-                    subregion: response.data[0].subregion
+                    capital: response.data[0].capital || 'Unknown',
+                    population: response.data[0].population || 'Unknown',
+                    continent: response.data[0].continents[0] || 'Unknown',
+                    area: response.data[0].area || 'Unknown',
+                    subregion: response.data[0].subregion || 'Unknown'
                 }
             ))
             .catch(error => console.error(error))
@@ -154,7 +154,7 @@ export default function Game() {
         }
         else if (timer === 0) { 
             setGameEnded(true);
-            toast('You Lost! Redirecting to homepage after 10 seconds', {
+            toast('You Lost! Redirecting to homepage', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -170,7 +170,7 @@ export default function Game() {
     const makeGuess = () => { 
         if (guess.toLowerCase() === guessTheCountry.name.toLowerCase()) { 
             setGameEnded(true); 
-            toast('You Won! Redirecting to homepage after 10 seconds', {
+            toast('You Won! Redirecting to homepage', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -189,7 +189,7 @@ export default function Game() {
                 }, 500);
                 if ( numberOfGuesses - guessesMade === 1 ) { 
                     setGameEnded(true);
-                    toast('You Lost! Redirecting to homepage after 10 seconds', {
+                    toast('You Lost! Redirecting to homepage', {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -237,7 +237,7 @@ export default function Game() {
                     initial='hidden'
                     animate='visible'
                     exit='exit'
-                    className="text-center"
+                    className="text-center display-md-1 display-4"
                     >Welcome To The Game, <span className="fw-bold">{name}</span>! - <span className="mode-name">{mode}</span> Mode</Motion.h1> 
                 }
                 { 
@@ -281,7 +281,7 @@ export default function Game() {
                                             <div className="country-flag">
                                                 <img src={guessTheCountry.flag} />
                                             </div>
-                                            <div className="country-name fw-bold fs-2">
+                                            <div className="country-name fw-bold display-6">
                                                 {guessTheCountry.name}
                                             </div>
                                         </>
@@ -290,12 +290,12 @@ export default function Game() {
                                             <div className="country-flag">
                                                 <img src={img} />
                                             </div>
-                                            <div className="country-name fw-bold fs-2">
+                                            <div className="country-name fw-bold display-6">
                                                 ???
                                             </div>
                                             <div className="guess d-flex align-items-center gap-4">
                                                 <Motion.input whileFocus={{scale: 1.1}} onChange={(e) => setGuess(e.currentTarget.value)} value={guess}
-                                                placeholder={`Make a guess (${guessesMade}/${numberOfGuesses})`} className={`fw-bold ${wrongGuess ? 'wrong-guess' : ''}`} />
+                                                placeholder={`Make a guess (${guessesMade}/${numberOfGuesses})`} className={`user-guess fw-bold ${wrongGuess ? 'wrong-guess' : ''}`} />
                                                 <Motion.button whileTap={{scale: 0.9}} onClick={() => makeGuess()}
                                                 className="submit-guess btn btn-warning">Guess</Motion.button>
                                             </div>
@@ -314,21 +314,21 @@ export default function Game() {
                                 variants={clueVariant}
                                 className="clue fs-3 d-flex flex-wrap align-items-center gap-3">
                                     <div className="clue-name">Contienent:</div>
-                                    <div>
-                                        {guessTheCountry.continent ? guessTheCountry.continent : 'Unknown'}
+                                    <div className="d-flex gap-2">
+                                        {guessTheCountry.continent}
                                     </div>
                                 </Motion.li>
                                 <Motion.li
                                 variants={clueVariant}
                                 className="clue fs-3 d-flex align-items-center gap-3">
                                     <div className="clue-name">Subregion:</div>
-                                    <div> {guessTheCountry.subregion ? guessTheCountry.subregion : 'Unknown'} </div>
+                                    <div> {guessTheCountry.subregion} </div>
                                 </Motion.li>
                                 <Motion.li
                                 variants={clueVariant}
                                 className="clue fs-3 d-flex align-items-center gap-3">
                                     <div className="clue-name">Capital:</div>
-                                    <div> {guessTheCountry.capital ? guessTheCountry.capital : 'Unknown'} </div>
+                                    <div> {guessTheCountry.capital} </div>
                                 </Motion.li>
                                 <Motion.li
                                 variants={clueVariant}

@@ -20,6 +20,7 @@
 
 .country img { 
     width: 15vw;
+    min-width: 200px;
     border-radius: 20px;
 }
 
@@ -49,3 +50,4 @@
         transform: translateX(-5px);
     }
 }
+
